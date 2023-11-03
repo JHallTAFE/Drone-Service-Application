@@ -3,10 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Drone_Service_Application"
+        xmlns:local="clr-namespace:Drone_Service_Application" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinWidth="500" MinHeight="200">
     <Grid>
+        <TextBox x:Name="ClientName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Client Name" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="DroneModel" HorizontalAlignment="Left" Margin="95,10,0,0" TextWrapping="Wrap" Text="Drone Model" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="ServiceProblem" HorizontalAlignment="Left" Margin="10,33,0,109" TextWrapping="Wrap" Text="Service Problem" Width="165"/>
+        <TextBox x:Name="ServiceCost" HorizontalAlignment="Left" Margin="12,0,0,86" TextWrapping="Wrap" Text="Service Cost" VerticalAlignment="Bottom" Width="80"/>
+        <xctk:IntegerUpDown x:Name="ServiceTag" HorizontalAlignment="Left" Margin="95,0,0,86" VerticalAlignment="Bottom" Width="80" Height="18" Value="100" Minimum="100" Maximum="900" Increment="10"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="0" Margin="-247,482,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="Service" Margin="10,0,0,35" Width="165" Height="46" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Grid x:Name="Service_Priority">
+                <RadioButton x:Name="RadioServiceRegular" Content="Regular" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                <RadioButton x:Name="RadioServiceExpress" Content="Express" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+        <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="165"/>
+        <TabControl Margin="180,10,180,35">
+            <TabItem x:Name="TabRegular" Header="Regular">
+                <Grid Background="#FFE5E5E5">
+                    <ListView x:Name="ListViewServiceRegular" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Client Name"/>
+                                <GridViewColumn Header="Drone Model"/>
+                                <GridViewColumn Header="Service Cost"/>
+                                <GridViewColumn Header="Service Problem"/>
+                                <GridViewColumn Header="Service Tag"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabExpress" Header="Express">
+                <Grid Background="#FFE5E5E5">
+                    <ListView x:Name="ListViewServiceRegular_Copy" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Client Name"/>
+                                <GridViewColumn Header="Drone Model"/>
+                                <GridViewColumn Header="Service Cost"/>
+                                <GridViewColumn Header="Service Problem"/>
+                                <GridViewColumn Header="Service Tag"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="FinishService" Content="Finish Service" VerticalAlignment="Bottom" Width="96" VerticalContentAlignment="Center" MinWidth="100" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,33,10,35" HorizontalAlignment="Right" Width="165"/>
+        <Button x:Name="RemoveDrone" Content="Remove Drone" HorizontalAlignment="Right" Margin="0,0,51,10" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>

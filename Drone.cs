@@ -8,6 +8,15 @@
         private double _serviceCost;
         private int _serviceTag;
 
+        public Drone()
+        {
+            _clientName = string.Empty;
+            _droneModel = string.Empty;
+            _serviceProblem = string.Empty;
+            _serviceCost = 0;
+            _serviceTag = 100;
+        }
+
         #region accessors
         public string GetClientName()
         {
