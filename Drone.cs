@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Drone_Service_Application
 {
+    // Programming Criteria 6.1
     internal class Drone
     {
         /// <summary>
