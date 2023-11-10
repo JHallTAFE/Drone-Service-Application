@@ -16,11 +16,11 @@
         <Button Content="Button" HorizontalAlignment="Left" Height="0" Margin="-247,482,0,0" VerticalAlignment="Top"/>
         <GroupBox Header="Service" Margin="10,0,0,35" Width="165" Height="46" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <Grid x:Name="Service_Priority">
-                <RadioButton x:Name="RadioServiceRegular" Content="Regular" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                <RadioButton x:Name="RadioServiceExpress" Content="Express" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Center"/>
+                <RadioButton x:Name="RegularService" Content="Regular" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                <RadioButton x:Name="ExpressService" Content="Express" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="165"/>
+        <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="165" Click="AddDrone_Click"/>
         <TabControl Margin="180,10,180,35">
             <TabItem x:Name="TabRegular" Header="Regular">
                 <Grid Background="#FFE5E5E5">

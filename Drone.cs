@@ -77,7 +77,7 @@ namespace Drone_Service_Application
                     // Capitalise first letter
                     serviceProblem = Char.ToUpper(serviceProblem[0]) + serviceProblem[1..];
                     // Sentence case any words after a full stop and space.
-                    serviceProblem = Regex.Replace(serviceProblem, @"\.\s[a-z]", match => ". " + match.Groups[1].Value.ToUpper());
+                    serviceProblem = Regex.Replace(serviceProblem, @"\.\s[a-z]", match => match.Groups[0].Value.ToUpper());
                 }
             }
             _serviceProblem = serviceProblem;
