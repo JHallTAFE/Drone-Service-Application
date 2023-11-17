@@ -49,6 +49,7 @@ namespace Drone_Service_Application
                 }
                 IncrementServiceTag();
                 DisplayServiceQueue();
+                ClearBoxes();
             }
             else
             {
@@ -147,6 +148,7 @@ namespace Drone_Service_Application
             //ServiceCost.Text = drone.GetServiceCost().ToString();
             //ServiceTag.Text = drone.GetServiceTag().ToString();
         }
+        // Programming Criteria 6.16 Part B
         private void FinishDroneService(int index)
         {
             // If index is within the list
@@ -155,6 +157,15 @@ namespace Drone_Service_Application
                 FinishedItems.Items.RemoveAt(index);
                 _finishedList.RemoveAt(index);
             }
+        }
+        // Programming Criteria 6.17
+        private void ClearBoxes()
+        {
+            ClientName.Clear();
+            DroneModel.Clear();
+            ServiceProblem.Clear();
+            ServiceCost.Clear();
+            RegularService.IsChecked = true;
         }
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
@@ -203,7 +214,7 @@ namespace Drone_Service_Application
                 DisplayDrone(drone);
             }
         }
-
+        // Programming Criteria 6.16 Part A
         private void RemoveDrone_Event(object sender, EventArgs e)
         {
             if (FinishedItems.SelectedIndex >= 0)
