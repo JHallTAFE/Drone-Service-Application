@@ -35,6 +35,7 @@ namespace Drone_Service_Application
                 droneToAdd.SetClientName(ClientName.Text);
                 droneToAdd.SetDroneModel(DroneModel.Text);
                 droneToAdd.SetServiceProblem(ServiceProblem.Text);
+                droneToAdd.SetServiceTag(int.Parse(ServiceTag.Text));
                 if (GetServicePriority() == "ExpressService")
                 {
                     // Programming Criteria 6.6
@@ -46,6 +47,7 @@ namespace Drone_Service_Application
                     droneToAdd.SetServiceCost(_serviceCost);
                     _regularService.Enqueue(droneToAdd);
                 }
+                IncrementServiceTag();
                 DisplayServiceQueue();
             }
             else
@@ -107,6 +109,17 @@ namespace Drone_Service_Application
                     serviceTag = drone.GetServiceTag()
                 });
             }
+        }
+
+        private void IncrementServiceTag()
+        {
+            if (int.TryParse(ServiceTag.Text, out int _serviceTag) && _serviceTag > 890)
+            {
+                _serviceTag = 900;
+            }
+            else
+                _serviceTag += 10;
+            ServiceTag.Text = _serviceTag.ToString();
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
