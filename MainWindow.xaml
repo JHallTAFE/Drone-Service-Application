@@ -27,11 +27,11 @@
                     <ListView x:Name="ListViewServiceRegular" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Client Name"/>
-                                <GridViewColumn Header="Drone Model"/>
-                                <GridViewColumn Header="Service Cost"/>
-                                <GridViewColumn Header="Service Problem"/>
-                                <GridViewColumn Header="Service Tag"/>
+                                <GridViewColumn Header="Client Name" DisplayMemberBinding="{Binding clientName}" Width="80"/>
+                                <GridViewColumn Header="Drone Model" DisplayMemberBinding="{Binding droneModel}" Width="80"/>
+                                <GridViewColumn Header="Service Cost" DisplayMemberBinding="{Binding serviceCost}" Width="72"/>
+                                <GridViewColumn Header="Service Problem" DisplayMemberBinding="{Binding serviceProblem}" Width="96"/>
+                                <GridViewColumn Header="Service Tag" DisplayMemberBinding="{Binding serviceTag}" Width="72"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -39,14 +39,14 @@
             </TabItem>
             <TabItem x:Name="TabExpress" Header="Express">
                 <Grid Background="#FFE5E5E5">
-                    <ListView x:Name="ListViewServiceRegular_Copy" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                    <ListView x:Name="ListViewServiceExpress" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Client Name"/>
-                                <GridViewColumn Header="Drone Model"/>
-                                <GridViewColumn Header="Service Cost"/>
-                                <GridViewColumn Header="Service Problem"/>
-                                <GridViewColumn Header="Service Tag"/>
+                                <GridViewColumn Header="Client Name" DisplayMemberBinding="{Binding clientName}" Width="80"/>
+                                <GridViewColumn Header="Drone Model" DisplayMemberBinding="{Binding droneModel}" Width="80"/>
+                                <GridViewColumn Header="Service Cost" DisplayMemberBinding="{Binding serviceCost}" Width="72"/>
+                                <GridViewColumn Header="Service Problem" DisplayMemberBinding="{Binding serviceProblem}" Width="96"/>
+                                <GridViewColumn Header="Service Tag" DisplayMemberBinding="{Binding serviceTag}" Width="72"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

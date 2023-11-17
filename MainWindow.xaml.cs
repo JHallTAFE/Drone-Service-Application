@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,7 @@ namespace Drone_Service_Application
             RegularService.IsChecked = true;
         }
 
+        // Programming Criteria 6.5
         private void AddNewItem()
         {
             if (IsFilled() && double.TryParse(ServiceCost.Text, out double _serviceCost))
@@ -35,6 +37,7 @@ namespace Drone_Service_Application
                 droneToAdd.SetServiceProblem(ServiceProblem.Text);
                 if (GetServicePriority() == "ExpressService")
                 {
+                    // Programming Criteria 6.6
                     droneToAdd.SetServiceCost(_serviceCost * 1.15);
                     _expressService.Enqueue(droneToAdd);
                 }
@@ -43,6 +46,7 @@ namespace Drone_Service_Application
                     droneToAdd.SetServiceCost(_serviceCost);
                     _regularService.Enqueue(droneToAdd);
                 }
+                DisplayServiceQueue();
             }
             else
             {
@@ -62,6 +66,7 @@ namespace Drone_Service_Application
             else
                 return true;
         }
+        // Programming Criteria 6.7
         private string GetServicePriority()
         {
             // var serviceButtons = LogicalTreeHelper.GetChildren(Service_Priority).OfType<RadioButton>();
@@ -72,6 +77,36 @@ namespace Drone_Service_Application
                     return radioButton.Name;
             }
             return string.Empty;
+        }
+        private void DisplayServiceQueue()
+        {
+            ListViewServiceRegular.Items.Clear();
+            ListViewServiceExpress.Items.Clear();
+
+            // Programming Criteria 6.8
+            foreach (var drone in _regularService)
+            {
+                ListViewServiceRegular.Items.Add(new
+                {
+                    clientName = drone.GetClientName(),
+                    droneModel = drone.GetDroneModel(),
+                    serviceCost = drone.GetServiceCost(),
+                    serviceProblem = drone.GetServiceProblem(),
+                    serviceTag = drone.GetServiceTag()
+                });
+            }
+            // Programming Criteria 6.9
+            foreach (var drone in _expressService)
+            {
+                ListViewServiceExpress.Items.Add(new
+                {
+                    clientName = drone.GetClientName(),
+                    droneModel = drone.GetDroneModel(),
+                    serviceCost = drone.GetServiceCost(),
+                    serviceProblem = drone.GetServiceProblem(),
+                    serviceTag = drone.GetServiceTag()
+                });
+            }
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
