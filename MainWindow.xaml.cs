@@ -122,9 +122,60 @@ namespace Drone_Service_Application
             ServiceTag.Text = _serviceTag.ToString();
         }
 
+        private string GetSelectedServiceTab()
+        {
+            TabItem? selectedTab = ServiceTabs.SelectedItem as TabItem;
+            if (selectedTab != null)
+            {
+                var tabName = selectedTab.Header.ToString() ?? String.Empty;
+                return tabName;
+            }
+            return String.Empty;
+        }
+        // Programming Criteria 6.12 & 6.13 Part B
+        private void DisplayDrone(Drone drone)
+        {
+            ClientName.Text = drone.GetClientName();
+            DroneModel.Text = drone.GetDroneModel();
+            ServiceProblem.Text = drone.GetServiceProblem();
+            //ServiceCost.Text = drone.GetServiceCost().ToString();
+            //ServiceTag.Text = drone.GetServiceTag().ToString();
+        }
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem();
+        }
+
+        private void FinishService_Click(object sender, RoutedEventArgs e)
+        {
+            // To-do: 6.14/6.15
+        }
+        private void ListViewService_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedIndex = -1;
+            Drone? drone = null;
+            // Programming Criteria 6.12 Part A
+            if (GetSelectedServiceTab() == "Regular")
+            {
+                selectedIndex = ListViewServiceRegular.SelectedIndex;
+                if (selectedIndex >= 0)
+                {
+                    drone = _regularService.ElementAt(selectedIndex);
+                }
+            }
+            // Programming Criteria 6.13 Part A
+            else if (GetSelectedServiceTab() == "Express")
+            {
+                selectedIndex = ListViewServiceExpress.SelectedIndex;
+                if (selectedIndex >= 0)
+                {
+                    drone = _expressService.ElementAt(selectedIndex);
+                }
+            }
+            if (drone != null)
+            {
+                DisplayDrone(drone);
+            }
         }
     }
 }
