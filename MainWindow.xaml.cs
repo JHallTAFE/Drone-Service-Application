@@ -84,6 +84,7 @@ namespace Drone_Service_Application
         {
             ListViewServiceRegular.Items.Clear();
             ListViewServiceExpress.Items.Clear();
+            FinishedItems.Items.Clear();
 
             // Programming Criteria 6.8
             foreach (var drone in _regularService)
@@ -108,6 +109,11 @@ namespace Drone_Service_Application
                     serviceProblem = drone.GetServiceProblem(),
                     serviceTag = drone.GetServiceTag()
                 });
+            }
+            // Programming Criteria 6.14 & 6.15 Part B
+            foreach (var drone in _finishedList)
+            {
+                FinishedItems.Items.Add(drone.DisplayDetails());
             }
         }
 
@@ -148,7 +154,18 @@ namespace Drone_Service_Application
 
         private void FinishService_Click(object sender, RoutedEventArgs e)
         {
-            // To-do: 6.14/6.15
+            // Programming Criteria 6.14 Part A
+            if (GetSelectedServiceTab() == "Regular" && _regularService.Count > 0)
+            {
+                _finishedList.Add(_regularService.Dequeue());
+                DisplayServiceQueue();
+            }
+            // Programming Criteria 6.15 Part A
+            else if (GetSelectedServiceTab() == "Express" & _expressService.Count > 0)
+            {
+                _finishedList.Add(_expressService.Dequeue());
+                DisplayServiceQueue();
+            }
         }
         private void ListViewService_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
