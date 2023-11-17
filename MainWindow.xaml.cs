@@ -147,6 +147,15 @@ namespace Drone_Service_Application
             //ServiceCost.Text = drone.GetServiceCost().ToString();
             //ServiceTag.Text = drone.GetServiceTag().ToString();
         }
+        private void FinishDroneService(int index)
+        {
+            // If index is within the list
+            if (index >= 0 && FinishedItems.Items.Count > index)
+            {
+                FinishedItems.Items.RemoveAt(index);
+                _finishedList.RemoveAt(index);
+            }
+        }
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem();
@@ -192,6 +201,14 @@ namespace Drone_Service_Application
             if (drone != null)
             {
                 DisplayDrone(drone);
+            }
+        }
+
+        private void RemoveDrone_Event(object sender, EventArgs e)
+        {
+            if (FinishedItems.SelectedIndex >= 0)
+            {
+                FinishDroneService(FinishedItems.SelectedIndex);
             }
         }
     }

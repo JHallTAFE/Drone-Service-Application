@@ -54,8 +54,8 @@
             </TabItem>
         </TabControl>
         <Button x:Name="FinishService" Content="Finish Service" VerticalAlignment="Bottom" Width="96" VerticalContentAlignment="Center" MinWidth="100" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" Margin="0,0,0,10" HorizontalAlignment="Center" Click="FinishService_Click"/>
-        <ListBox x:Name="FinishedItems" Margin="0,33,10,35" HorizontalAlignment="Right" Width="165"/>
-        <Button x:Name="RemoveDrone" Content="Remove Drone" HorizontalAlignment="Right" Margin="0,0,51,10" VerticalAlignment="Bottom"/>
+        <ListBox x:Name="FinishedItems" Margin="0,33,10,35" HorizontalAlignment="Right" Width="165" MouseDoubleClick="RemoveDrone_Event"/>
+        <Button x:Name="RemoveDrone" Content="Remove Drone" HorizontalAlignment="Right" Margin="0,0,51,10" VerticalAlignment="Bottom" Click="RemoveDrone_Event"/>
 
     </Grid>
 </Window>
