@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using Xceed.Wpf.AvalonDock.Controls;
@@ -23,6 +24,7 @@ namespace Drone_Service_Application
         {
             InitializeComponent();
             RegularService.IsChecked = true;
+            DataObject.AddPastingHandler(ServiceCost, ServiceCostOnPaste_Event);
         }
 
         // Programming Criteria 6.5
@@ -220,6 +222,36 @@ namespace Drone_Service_Application
             if (FinishedItems.SelectedIndex >= 0)
             {
                 FinishDroneService(FinishedItems.SelectedIndex);
+            }
+        }
+        // Programming Criteria 6.10 Part A
+        private void ServiceCost_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            var regex = @"^[0-9]*(\.[0-9]{0,2})?$";
+            Regex regexObj = new(regex);
+            string finalText = ServiceCost.Text.Insert(ServiceCost.CaretIndex, e.Text);
+
+            // If user would press an input that makes the result invalid
+            if (!regexObj.IsMatch(finalText))
+            {
+                e.Handled = true;
+            }
+        }
+        // Programming Criteria 6.10 Part B
+        private void ServiceCostOnPaste_Event(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string pasteText = (string)e.DataObject.GetData(typeof(string));
+                var regex = @"^[0-9]*(\.[0-9]{0,2})?$";
+                Regex regexObj = new(regex);
+                string finalText = ServiceCost.Text.Insert(ServiceCost.CaretIndex, pasteText);
+
+                // If paste contents are not valid or if the end result would not be valid
+                if (!regexObj.IsMatch(finalText))
+                {
+                    e.CancelCommand();
+                }
             }
         }
     }

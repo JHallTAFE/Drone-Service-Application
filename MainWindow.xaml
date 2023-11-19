@@ -11,7 +11,7 @@
         <TextBox x:Name="ClientName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
         <TextBox x:Name="DroneModel" HorizontalAlignment="Left" Margin="95,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
         <TextBox x:Name="ServiceProblem" HorizontalAlignment="Left" Margin="10,33,0,109" TextWrapping="Wrap" Width="165"/>
-        <TextBox x:Name="ServiceCost" HorizontalAlignment="Left" Margin="12,0,0,86" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="80"/>
+        <TextBox x:Name="ServiceCost" HorizontalAlignment="Left" Margin="12,0,0,86" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="80" PreviewTextInput="ServiceCost_PreviewTextInput"/>
         <xctk:IntegerUpDown x:Name="ServiceTag" HorizontalAlignment="Left" Margin="95,0,0,86" VerticalAlignment="Bottom" Width="80" Height="18" Value="100" Minimum="100" Maximum="900" Increment="10"/>
         <Button Content="Button" HorizontalAlignment="Left" Height="0" Margin="-247,482,0,0" VerticalAlignment="Top"/>
         <GroupBox Header="Service" Margin="10,0,0,35" Width="165" Height="46" HorizontalAlignment="Left" VerticalAlignment="Bottom">
