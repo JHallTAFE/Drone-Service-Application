@@ -25,14 +25,17 @@ namespace Drone_Service_Application
             InitializeComponent();
             RegularService.IsChecked = true;
             DataObject.AddPastingHandler(ServiceCost, ServiceCostOnPaste_Event);
+            StatusBarText.Text = "Ready to work!";
         }
 
         // Programming Criteria 6.5
+        /// <summary>
+        /// Attempts to create a new drone object and add it to the appropriate queue.
+        /// </summary>
         private void AddNewItem()
         {
             if (IsFilled() && double.TryParse(ServiceCost.Text, out double _serviceCost))
             {
-                // To do: Increment Service Tag as per Programming Criteria 6.11
                 var droneToAdd = new Drone();
                 droneToAdd.SetClientName(ClientName.Text);
                 droneToAdd.SetDroneModel(DroneModel.Text);
@@ -43,11 +46,13 @@ namespace Drone_Service_Application
                     // Programming Criteria 6.6
                     droneToAdd.SetServiceCost(_serviceCost * 1.15);
                     _expressService.Enqueue(droneToAdd);
+                    StatusBarText.Text = String.Format("{0}'s drone {1} added to the express queue!", droneToAdd.GetClientName(), droneToAdd.GetDroneModel());
                 }
                 else // Assume regular service
                 {
                     droneToAdd.SetServiceCost(_serviceCost);
                     _regularService.Enqueue(droneToAdd);
+                    StatusBarText.Text = String.Format("{0}'s drone {1} added to the regular queue!", droneToAdd.GetClientName(), droneToAdd.GetDroneModel());
                 }
                 IncrementServiceTag();
                 DisplayServiceQueue();
@@ -55,9 +60,13 @@ namespace Drone_Service_Application
             }
             else
             {
-                // To-do Status strip feedback about filling in boxes
+                StatusBarText.Text = "One or more boxes were left blank or invalid. Could not add drone.";
             }
         }
+        /// <summary>
+        /// Checks if all the input boxes are filled to create a new drone with.
+        /// </summary>
+        /// <returns>true if all the boxes are filled, false otherwise.</returns>
         private bool IsFilled()
         {
             if (string.IsNullOrWhiteSpace(ClientName.Text)
@@ -72,9 +81,12 @@ namespace Drone_Service_Application
                 return true;
         }
         // Programming Criteria 6.7
+        /// <summary>
+        /// Gets the service priority radio box currently checked.
+        /// </summary>
+        /// <returns>The name of the checked radio box, or string.Empty if no radio button is selected.</returns>
         private string GetServicePriority()
         {
-            // var serviceButtons = LogicalTreeHelper.GetChildren(Service_Priority).OfType<RadioButton>();
             var serviceButtons = Service_Priority.FindLogicalChildren<RadioButton>();
             foreach (var radioButton in serviceButtons)
             {
@@ -83,6 +95,9 @@ namespace Drone_Service_Application
             }
             return string.Empty;
         }
+        /// <summary>
+        /// Refreshes the display for both queues and the list box.
+        /// </summary>
         private void DisplayServiceQueue()
         {
             ListViewServiceRegular.Items.Clear();
@@ -96,7 +111,7 @@ namespace Drone_Service_Application
                 {
                     clientName = drone.GetClientName(),
                     droneModel = drone.GetDroneModel(),
-                    serviceCost = drone.GetServiceCost(),
+                    serviceCost = drone.GetServiceCost().ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-AU")),
                     serviceProblem = drone.GetServiceProblem(),
                     serviceTag = drone.GetServiceTag()
                 });
@@ -108,7 +123,7 @@ namespace Drone_Service_Application
                 {
                     clientName = drone.GetClientName(),
                     droneModel = drone.GetDroneModel(),
-                    serviceCost = drone.GetServiceCost(),
+                    serviceCost = drone.GetServiceCost().ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-AU")),
                     serviceProblem = drone.GetServiceProblem(),
                     serviceTag = drone.GetServiceTag()
                 });
@@ -119,7 +134,10 @@ namespace Drone_Service_Application
                 FinishedItems.Items.Add(drone.DisplayDetails());
             }
         }
-
+        // Programming Criteria 6.11
+        /// <summary>
+        /// Increments the service tag by 10, to a maximum of 900.
+        /// </summary>
         private void IncrementServiceTag()
         {
             if (int.TryParse(ServiceTag.Text, out int _serviceTag) && _serviceTag > 890)
@@ -130,7 +148,10 @@ namespace Drone_Service_Application
                 _serviceTag += 10;
             ServiceTag.Text = _serviceTag.ToString();
         }
-
+        /// <summary>
+        /// Gets the selected tab displaying the queue.
+        /// </summary>
+        /// <returns>The name of the tab selected, or string.Empty if no tab is selected.</returns>
         private string GetSelectedServiceTab()
         {
             TabItem? selectedTab = ServiceTabs.SelectedItem as TabItem;
@@ -141,7 +162,12 @@ namespace Drone_Service_Application
             }
             return String.Empty;
         }
+
         // Programming Criteria 6.12 & 6.13 Part B
+        /// <summary>
+        /// Displays the client name, drone model and service problem of the given drone in the text boxes.
+        /// </summary>
+        /// <param name="drone">The drone to display.</param>
         private void DisplayDrone(Drone drone)
         {
             ClientName.Text = drone.GetClientName();
@@ -151,16 +177,25 @@ namespace Drone_Service_Application
             //ServiceTag.Text = drone.GetServiceTag().ToString();
         }
         // Programming Criteria 6.16 Part B
+        /// <summary>
+        /// Removes the drone with the given index from the finished items list.
+        /// </summary>
+        /// <param name="index">Index of the drone to remove.</param>
         private void FinishDroneService(int index)
         {
             // If index is within the list
             if (index >= 0 && FinishedItems.Items.Count > index)
             {
+                var removedDrone = _finishedList[index];
                 FinishedItems.Items.RemoveAt(index);
                 _finishedList.RemoveAt(index);
+                StatusBarText.Text = String.Format("{0}'s drone has been collected!", removedDrone.GetClientName());
             }
         }
         // Programming Criteria 6.17
+        /// <summary>
+        /// Clears the input boxes.
+        /// </summary>
         private void ClearBoxes()
         {
             ClientName.Clear();
@@ -179,14 +214,18 @@ namespace Drone_Service_Application
             // Programming Criteria 6.14 Part A
             if (GetSelectedServiceTab() == "Regular" && _regularService.Count > 0)
             {
-                _finishedList.Add(_regularService.Dequeue());
+                var drone = _regularService.Dequeue();
+                _finishedList.Add(drone);
                 DisplayServiceQueue();
+                StatusBarText.Text = String.Format("Finished service on {0}'s drone.", drone.GetClientName());
             }
             // Programming Criteria 6.15 Part A
             else if (GetSelectedServiceTab() == "Express" & _expressService.Count > 0)
             {
-                _finishedList.Add(_expressService.Dequeue());
+                var drone = _expressService.Dequeue();
+                _finishedList.Add(drone);
                 DisplayServiceQueue();
+                StatusBarText.Text = String.Format("Finished service on {0}'s drone.", drone.GetClientName());
             }
         }
         private void ListViewService_SelectionChanged(object sender, SelectionChangedEventArgs e)

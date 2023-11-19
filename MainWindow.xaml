@@ -1,4 +1,4 @@
-﻿<Window x:Class="Drone_Service_Application.MainWindow"
+﻿<Window x:Name="Drone_Management_Window" x:Class="Drone_Service_Application.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,22 +6,22 @@
         xmlns:local="clr-namespace:Drone_Service_Application"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinWidth="500" MinHeight="200">
+        Title="Drone Service App" Height="540" Width="960" MinWidth="500" MinHeight="480">
     <Grid>
-        <TextBox x:Name="ClientName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
-        <TextBox x:Name="DroneModel" HorizontalAlignment="Left" Margin="95,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
-        <TextBox x:Name="ServiceProblem" HorizontalAlignment="Left" Margin="10,33,0,109" TextWrapping="Wrap" Width="165"/>
-        <TextBox x:Name="ServiceCost" HorizontalAlignment="Left" Margin="12,0,0,86" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="80" PreviewTextInput="ServiceCost_PreviewTextInput"/>
-        <xctk:IntegerUpDown x:Name="ServiceTag" HorizontalAlignment="Left" Margin="95,0,0,86" VerticalAlignment="Bottom" Width="80" Height="18" Value="100" Minimum="100" Maximum="900" Increment="10"/>
+        <xctk:WatermarkTextBox x:Name="ClientName" Watermark="Client Name" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Height="24"/>
+        <xctk:WatermarkTextBox x:Name="DroneModel" Watermark="Drone Model" HorizontalAlignment="Left" Margin="95,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Height="24"/>
+        <xctk:WatermarkTextBox x:Name="ServiceProblem" Watermark="Service Problem" HorizontalAlignment="Left" Margin="10,39,0,135" TextWrapping="Wrap" Width="165"/>
+        <xctk:WatermarkTextBox x:Name="ServiceCost" Watermark="Service Cost" HorizontalAlignment="Left" Margin="12,0,0,106" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="80" Height="24" PreviewTextInput="ServiceCost_PreviewTextInput"/>
+        <xctk:IntegerUpDown x:Name="ServiceTag" HorizontalAlignment="Left" Margin="95,0,0,106" VerticalAlignment="Bottom" Width="80" Height="24" Value="100" Minimum="100" Maximum="900" Increment="10"/>
         <Button Content="Button" HorizontalAlignment="Left" Height="0" Margin="-247,482,0,0" VerticalAlignment="Top"/>
-        <GroupBox Header="Service" Margin="10,0,0,35" Width="165" Height="46" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        <GroupBox Header="Service" Margin="10,0,0,55" Width="165" Height="46" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <Grid x:Name="Service_Priority">
                 <RadioButton x:Name="RegularService" Content="Regular" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
                 <RadioButton x:Name="ExpressService" Content="Express" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="165" Click="AddDrone_Click"/>
-        <TabControl x:Name="ServiceTabs" Margin="180,10,180,35">
+        <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="10,0,0,30" VerticalAlignment="Bottom" Width="165" Click="AddDrone_Click"/>
+        <TabControl x:Name="ServiceTabs" Margin="180,10,180,55">
             <TabItem x:Name="TabRegular" Header="Regular">
                 <Grid Background="#FFE5E5E5">
                     <ListView x:Name="ListViewServiceRegular" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="ListViewService_SelectionChanged">
@@ -53,9 +53,11 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="FinishService" Content="Finish Service" VerticalAlignment="Bottom" Width="96" VerticalContentAlignment="Center" MinWidth="100" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" Margin="0,0,0,10" HorizontalAlignment="Center" Click="FinishService_Click"/>
-        <ListBox x:Name="FinishedItems" Margin="0,33,10,35" HorizontalAlignment="Right" Width="165" MouseDoubleClick="RemoveDrone_Event"/>
-        <Button x:Name="RemoveDrone" Content="Remove Drone" HorizontalAlignment="Right" Margin="0,0,51,10" VerticalAlignment="Bottom" Click="RemoveDrone_Event"/>
-
+        <Button x:Name="FinishService" Content="Finish Service" VerticalAlignment="Bottom" Width="165" VerticalContentAlignment="Center" MinWidth="100" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" Margin="0,0,0,30" HorizontalAlignment="Center" Click="FinishService_Click"/>
+        <ListBox x:Name="FinishedItems" Margin="0,33,10,55" HorizontalAlignment="Right" Width="165" MouseDoubleClick="RemoveDrone_Event"/>
+        <Button x:Name="RemoveDrone" Content="Remove Drone" HorizontalAlignment="Right" Margin="0,0,10,30" VerticalAlignment="Bottom" Click="RemoveDrone_Event" Width="165"/>
+        <StatusBar x:Name="StatusBar" Margin="0,414,0,0" Height="21" VerticalAlignment="Bottom">
+            <TextBlock x:Name="StatusBarText" TextWrapping="Wrap"/>
+        </StatusBar>
     </Grid>
 </Window>
